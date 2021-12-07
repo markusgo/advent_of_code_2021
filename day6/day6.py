@@ -1,12 +1,10 @@
-fish = [int(i) for i in open("input","r").read().strip().split(",")]
-day=0
-while day<80:
-	day+=1
-	toadd = 0
-	for j in range(len(fish)):
-		fish[j] = fish[j]-1
-		if fish[j]==0:
-			toadd+=1
-			fish[j]=7
-	fish.append([9 for i in range(toadd)])
-print(len(fish))
+from collections import Counter
+fish  = Counter([int(i) for i in open("input","r").read().strip().split(",")])
+for i in range(1,257):
+	newfish=[0,0,0,0,0,0,0,0,0]
+	for j in (1,2,3,4,5,6,8):
+		newfish[j-1] = fish[j]
+	newfish[6] = fish[0]+fish[7]
+	newfish[8] = fish[0]
+	fish=newfish
+print(i,sum(fish))
